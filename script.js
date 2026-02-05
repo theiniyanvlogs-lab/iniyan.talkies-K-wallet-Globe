@@ -7,14 +7,12 @@ async function sendMessage() {
 
   // Show user message
   chatBox.innerHTML += `
-    <div class="msg user">
-      ${msg}
-    </div>
+    <div class="msg user">${msg}</div>
   `;
 
   input.value = "";
 
-  // Create bot placeholder
+  // Bot placeholder
   let botDiv = document.createElement("div");
   botDiv.className = "msg bot";
   botDiv.innerHTML = `<p class="eng">Thinking...</p>`;
@@ -23,7 +21,6 @@ async function sendMessage() {
   chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
-    // Call backend API (Vercel serverless function)
     let response = await fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -34,14 +31,21 @@ async function sendMessage() {
 
     let data = await response.json();
 
-    // Show AI reply
+    // If API returned error
+    if (data.error) {
+      botDiv.innerHTML = `<p class="eng">Error: ${data.error}</p>`;
+      console.log("Full Error:", data);
+      return;
+    }
+
+    // Show reply safely
     botDiv.innerHTML = `
       <p class="eng">${data.reply}</p>
     `;
-  } catch (error) {
-    botDiv.innerHTML = `
-      <p class="eng">Error: API not working</p>
-    `;
+
+  } catch (err) {
+    botDiv.innerHTML = `<p class="eng">Server not responding</p>`;
+    console.log(err);
   }
 
   chatBox.scrollTop = chatBox.scrollHeight;
