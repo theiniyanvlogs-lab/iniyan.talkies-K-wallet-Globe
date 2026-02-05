@@ -21,39 +21,22 @@
     <div class="status">
       <span class="dot blue"></span> LOCALIZED
       <span class="dot green"></span> AI ONLINE
+
+      <!-- ✅ Clear Chat Button -->
+      <button class="clear-btn" onclick="clearChat()">Clear Chat</button>
     </div>
   </header>
 
-
   <!-- CHAT AREA -->
   <main class="chat-area" id="chatBox">
-
-    <!-- USER MESSAGE -->
-    <div class="msg user">
-      why fever is coming?
-      <span class="time">07:12 PM</span>
-    </div>
-
-    <!-- BOT MESSAGE -->
-    <div class="msg bot">
-      <p class="tamil">
-        காய்ச்சல் ஏற்படுவது உடலின் நோய் எதிர்ப்பு மண்டலம் போராடுவதால்.
-      </p>
-      <p class="eng">
-        Fever occurs because the body's immune system fights against infection.
-      </p>
-      <span class="time">07:12 PM</span>
-    </div>
-
+    <!-- Chat will appear here dynamically -->
   </main>
-
 
   <!-- INPUT BOX -->
   <footer class="input-bar">
     <input type="text" id="userInput" placeholder="Type here..." />
     <button onclick="sendMessage()">➤</button>
   </footer>
-
 
   <script src="script.js"></script>
 </body>
