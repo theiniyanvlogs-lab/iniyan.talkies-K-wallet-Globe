@@ -46,8 +46,24 @@ async function sendMessage() {
       return;
     }
 
-    // Show AI reply
-    botDiv.innerHTML = `<p class="eng">${data.reply}</p>`;
+    let replyText = data.reply;
+
+    // Split Tamil + English parts
+    let tamil = "";
+    let english = "";
+
+    if (replyText.includes("English:")) {
+      tamil = replyText.split("English:")[0].replace("Tamil:", "").trim();
+      english = replyText.split("English:")[1].trim();
+    } else {
+      tamil = replyText;
+    }
+
+    // Show reply with proper line breaks
+    botDiv.innerHTML = `
+      <p class="tamil">${tamil.replace(/\n/g, "<br>")}</p>
+      <p class="eng">${english.replace(/\n/g, "<br>")}</p>
+    `;
 
   } catch (err) {
     botDiv.innerHTML = `<p class="eng">Server not responding</p>`;
@@ -55,4 +71,9 @@ async function sendMessage() {
   }
 
   chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+/* Clear Chat Button Function */
+function clearChat() {
+  document.getElementById("chatBox").innerHTML = "";
 }
