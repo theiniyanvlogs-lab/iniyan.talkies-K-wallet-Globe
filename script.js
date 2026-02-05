@@ -14,14 +14,35 @@ async function sendMessage() {
 
   input.value = "";
 
-  // BOT Reply Placeholder
-  chatBox.innerHTML += `
-    <div class="msg bot">
-      <p class="eng">Thinking...</p>
-    </div>
-  `;
+  // Create bot placeholder
+  let botDiv = document.createElement("div");
+  botDiv.className = "msg bot";
+  botDiv.innerHTML = `<p class="eng">Thinking...</p>`;
+  chatBox.appendChild(botDiv);
 
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  // Later: Connect Grok API here
+  try {
+    // Call backend API (Vercel serverless function)
+    let response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: msg })
+    });
+
+    let data = await response.json();
+
+    // Show AI reply
+    botDiv.innerHTML = `
+      <p class="eng">${data.reply}</p>
+    `;
+  } catch (error) {
+    botDiv.innerHTML = `
+      <p class="eng">Error: API not working</p>
+    `;
+  }
+
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
