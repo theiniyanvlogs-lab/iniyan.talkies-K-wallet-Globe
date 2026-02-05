@@ -37,7 +37,11 @@ body {
   border-radius: 50%;
 }
 
+/* STATUS + BUTTON */
 .status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 12px;
   color: gray;
 }
@@ -47,12 +51,31 @@ body {
   width: 8px;
   border-radius: 50%;
   display: inline-block;
-  margin: 0 5px;
 }
 
-.blue { background: cyan; }
-.green { background: lime; }
+.blue {
+  background: cyan;
+}
 
+.green {
+  background: lime;
+}
+
+/* CLEAR CHAT BUTTON */
+.clear-btn {
+  margin-left: 10px;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 10px;
+  background: crimson;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  opacity: 0.8;
+}
 
 /* CHAT AREA */
 .chat-area {
@@ -81,16 +104,20 @@ body {
   border: 1px solid #333;
 }
 
+/* TAMIL + ENGLISH COLORS */
 .msg .tamil {
   color: gold;
   margin: 0;
+  font-size: 16px;
 }
 
 .msg .eng {
   color: hotpink;
-  margin: 5px 0 0;
+  margin: 6px 0 0;
+  font-size: 15px;
 }
 
+/* TIME */
 .time {
   font-size: 10px;
   color: gray;
@@ -98,7 +125,6 @@ body {
   bottom: -15px;
   right: 10px;
 }
-
 
 /* INPUT BAR */
 .input-bar {
@@ -115,14 +141,8 @@ body {
   outline: none;
   background: #222;
   color: white;
+  font-size: 14px;
 }
 
 .input-bar button {
-  margin-left: 10px;
-  padding: 12px 18px;
-  border: none;
-  border-radius: 50%;
-  background: #5a4bff;
-  color: white;
-  cursor: pointer;
-}
+  margin-left: 10p
