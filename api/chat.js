@@ -18,30 +18,43 @@ export default async function handler(req, res) {
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify({
           model: "llama-3.1-8b-instant",
 
-          // ✅ More tokens for 10 bullet answers
-          max_tokens: 700,
-          temperature: 0.5,
+          // ✅ Very high token limit for full answers
+          max_tokens: 1500,
+          temperature: 0.6,
 
           messages: [
             {
               role: "system",
               content: `
-You are a chatbot.
+You are a helpful chatbot.
 
-Strict Rules:
+Reply Rules:
+1. Always reply in TWO parts:
+
 Tamil:
-- exactly 10 bullet points (complete)
+- Give full detailed answer in bullet steps.
 
 English:
-- exactly 10 bullet points (complete)
+- Give full detailed answer in bullet steps.
 
-Never write paragraph.
-Always reply line-by-line bullets.
-Always finish all 10 points.
-Keep each bullet short and clear.
+2. Do not stop until the answer is complete.
+3. Use as many bullet points as needed.
+4. Do NOT give short/incomplete replies.
+5. Keep answers structured like:
+
+Tamil:
+- Ingredients
+- Steps
+- Tips
+
+English:
+- Ingredients
+- Steps
+- Tips
               `,
             },
             { role: "user", content: message },
