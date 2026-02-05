@@ -23,7 +23,7 @@ export default async function handler(req, res) {
           model: "llama-3.1-8b-instant",
 
           // ✅ Very high token limit for full answers
-          max_tokens: 1500,
+          max_tokens: 5000,
           temperature: 0.6,
 
           messages: [
