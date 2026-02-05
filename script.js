@@ -21,6 +21,7 @@ async function sendMessage() {
   chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
+    // Call backend API
     let response = await fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -31,21 +32,26 @@ async function sendMessage() {
 
     let data = await response.json();
 
-    // If API returned error
+    // If API error
     if (data.error) {
       botDiv.innerHTML = `<p class="eng">Error: ${data.error}</p>`;
-      console.log("Full Error:", data);
+      console.log("API Error Full:", data);
       return;
     }
 
-    // Show reply safely
-    botDiv.innerHTML = `
-      <p class="eng">${data.reply}</p>
-    `;
+    // If reply missing
+    if (!data.reply) {
+      botDiv.innerHTML = `<p class="eng">No reply received</p>`;
+      console.log("No reply:", data);
+      return;
+    }
+
+    // Show AI reply
+    botDiv.innerHTML = `<p class="eng">${data.reply}</p>`;
 
   } catch (err) {
     botDiv.innerHTML = `<p class="eng">Server not responding</p>`;
-    console.log(err);
+    console.log("Fetch Error:", err);
   }
 
   chatBox.scrollTop = chatBox.scrollHeight;
